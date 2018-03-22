@@ -15,9 +15,8 @@ function GetAllSolutionsDataToCsv()
     # CREATE A CRM CONNECTION
     Connect-CrmOnlineDiscovery -InteractiveMode
 
-
-    $solutions = Get-CrmRecords -EntityLogicalName solution -Fields uniquename,friendlyname,ismanaged #-FilterAttribute uniquename -FilterOperator eq -FilterValue $solutionName -Fields uniquename,version,ismanaged
-   
+    $solutions = Get-CrmRecords -EntityLogicalName solution -Fields uniquename,friendlyname,ismanaged
+    
     Add-Content -Path $CsvPath -Value "DisyplayName;UniqueName;IsManaged"
 
     foreach($solution in $solutions.CrmRecords)
