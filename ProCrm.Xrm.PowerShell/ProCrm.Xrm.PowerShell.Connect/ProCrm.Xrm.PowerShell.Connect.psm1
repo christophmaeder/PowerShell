@@ -1,14 +1,10 @@
-
-# IMPORT MODULES
-Import-Module Microsoft.Xrm.Data.Powershell
-
-function InitCrmConnectionInteractive() 
+function Invoke-CrmConnectionInteractive() 
 { 
     # CREATE A CRM CONNECTION
     Connect-CrmOnlineDiscovery -InteractiveMode
 }
 
-function InitCrmConnection()
+function Invoke-CrmConnection()
 { 
     param(
         [System.Management.Automation.PSCredential]$CrmCredentials   ,
@@ -19,7 +15,7 @@ function InitCrmConnection()
     Connect-CrmOnline -Credential $CrmCredentials -ServerUrl $CrmServerUrl 
 }
 
-function GetPsCredentials()
+function Get-Credentials()
 {
     param(
         [string]$Username,

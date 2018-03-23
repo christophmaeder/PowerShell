@@ -1,12 +1,4 @@
-
-# In this library:
-# 
-# ExportAllSolutionDataToCsv -CsvPath "C:\temp\solutions.csv"
-
-# IMPORT MODULE
-Import-Module Microsoft.Xrm.Data.Powershell
-
-function ExportAllSolutionDataToCsv()
+function Export-AllCrmSolutionDataToCsv()
 {
     param(
         [string]$CsvPath
@@ -33,7 +25,7 @@ function ExportAllSolutionDataToCsv()
     Write-Host "Finished getting and exporting solution data."
 }
 
-function CreateNewAutonumberAttribute () {
+function New-CrmAutonumberAttribute () {
     
     param (   
         [string]$AttributeName,
@@ -65,26 +57,26 @@ function CreateNewAutonumberAttribute () {
     return $response
 }
 
-function CreateNewEntity() {
+function New-CrmEntity() {
 
     param (   
-        [string]$entityname,
-        [string]$entityschemaname,
-        [string]$entityprefix
+        [string]$EntityName,
+        [string]$EntitySchemaName,
+        [string]$EntityPrefix
     )
     
-    Write-Output "Creating new entity $entityname ..."
+    Write-Output "Creating new entity $EntityName ..."
     Write-Output ""
 
     $newentity = New-Object Microsoft.Xrm.Sdk.Metadata.EntityMetadata
-    $newentity.SchemaName = $entityprefix+"_"+$entityschemaname
-    $newentity.DisplayName = New-Object Microsoft.Xrm.Sdk.Label($entityname, 1033)
-    $newentity.DisplayCollectionName = New-Object Microsoft.Xrm.Sdk.Label($($entityname + 's'),1033)
+    $newentity.SchemaName = $EntityPrefix+"_"+$EntitySchemaName
+    $newentity.DisplayName = New-Object Microsoft.Xrm.Sdk.Label($EntityName, 1033)
+    $newentity.DisplayCollectionName = New-Object Microsoft.Xrm.Sdk.Label($($EntityName + 's'),1033)
     $newentity.OwnershipType = [Microsoft.Xrm.Sdk.Metadata.OwnershipTypes]::UserOwned
     $newentity.IsActivity = $false
 
     $primattribute = New-Object Microsoft.Xrm.Sdk.Metadata.StringAttributeMetadata
-    $primattribute.SchemaName = $entityprefix+"_name"
+    $primattribute.SchemaName = $EntityPrefix+"_name"
     $primattribute.DisplayName = New-Object Microsoft.Xrm.Sdk.Label("Name",1033)
     $primattribute.Format = [Microsoft.Xrm.Sdk.Metadata.StringFormat]::Text
     $primattribute.MaxLength = 100
@@ -96,12 +88,12 @@ function CreateNewEntity() {
     $response = $conn.Execute($request)
    
     Write-Output ""
-    Write-Output "... entity $entityname created."
+    Write-Output "... entity $EntityName created."
 
     return $response
 }
 
-function DeleteEntity () {
+function Remove-CrmEntity () {
     
     param (
         
