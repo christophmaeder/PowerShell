@@ -91,7 +91,7 @@ Function Export-XrmSolution(){
         Write-Output ""
 
         Export-CrmSolution -SolutionName:$solutionname -SolutionZipFileName:$solutionname'_Managed.zip' -SolutionFilePath:$solutionPath -Managed:$true
-        DoSolutionVersionIncrement -solutionname $solutionname
+        Invoke-XrmSolutionVersionIncremention -solutionname $solutionname
 
         Write-Output ""
         Write-Output "... solution exported."
